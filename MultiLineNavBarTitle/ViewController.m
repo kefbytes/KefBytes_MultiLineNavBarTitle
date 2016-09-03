@@ -15,13 +15,44 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self setNavBarTitle];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    // shifting the tile up -20 to center vertically just to play with it, not necessary
+//    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
+    
+    // increasing size of nav bar, again may not be necessary
+//    [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.view.frame.size.width,100.0)];
+    
+}
+
+- (void)setNavBarTitle {
+    
+    // create attributed string
+    NSString *accountTitleString = @"Interest Checking \n XXXXXXXX1234";
+    NSMutableAttributedString *attrTitleString = [[NSMutableAttributedString alloc] initWithString:accountTitleString];
+    [attrTitleString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize: 22.0f] range:NSMakeRange(0, 17)];
+    [attrTitleString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(20, 12)];
+    
+    // create title label
+    UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 44)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.numberOfLines = 2;
+    
+    // set the title label to the attributed string
+    titleLabel.attributedText = attrTitleString;
+    [titleLabel sizeToFit];
+    
+    // set the label to the titleView of nav bar
+    self.navigationItem.titleView = titleLabel;
+    
 }
 
 @end
